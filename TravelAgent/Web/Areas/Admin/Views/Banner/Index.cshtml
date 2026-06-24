@@ -1,0 +1,95 @@
+﻿@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Areas/Admin/Views/Shared/_Admin.cshtml";
+}
+
+<!--begin::App Content Header-->
+<div class="app-content-header">
+	<!--begin::Container-->
+	<div class="container-fluid">
+		<!--begin::Row-->
+		<div class="row">
+			<div class="col-sm-6">
+				<h3 class="mb-0">Simple Tables</h3>
+			</div>
+			<div class="col-sm-6">
+				<ol class="breadcrumb float-sm-end">
+					<li class="breadcrumb-item"><a href="#">Home</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Simple Tables</li>
+				</ol>
+			</div>
+		</div>
+		<!--end::Row-->
+	</div>
+	<!--end::Container-->
+</div>
+<!--end::App Content Header-->
+<!--begin::App Content-->
+<div class="app-content">
+	<!--begin::Container-->
+	<div class="container-fluid">
+		<!--begin::Row-->
+		<div class="row">
+			<!-- /.col -->
+			<div class="col-md-12">
+
+				<div class="card mb-4">
+					<!-- /.card-header -->
+					<div class="card-body p-0">
+						<table id="items" class="table table-striped">
+							<thead>
+								<tr>
+									<th style="width: 10px">#</th>
+									<th>Tiêu đề</th>
+									<th style="width: 40px"></th>
+								</tr>
+							</thead>
+							<tbody>								
+							</tbody>
+						</table>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!--end::Row-->
+	</div>
+	<!--end::Container-->
+</div>
+<!--end::App Content-->
+@section Css{
+	<link rel="stylesheet" href="//cdn.datatables.net/2.3.8/css/dataTables.dataTables.min.css" />
+}
+@section Js {
+	<script src="https://cdn.datatables.net/2.3.8/js/dataTables.js"></script>
+	<script>
+		$(function () {
+			console.log("abc");
+			var items = $("#items").DataTable({
+				"processing": true,
+				"serverSide": true,
+				"ajax": {
+					"url": "/Admin/Banner/GetList",
+					"type": "POST",
+					"dataType": "json"
+				},
+				"columns": [
+					{
+						"data": null, "render": function (data, type, row, meta) { return meta.row + 1; }
+					},
+					{
+						"data": "title"
+					}, {
+						"render": function (data, type, row, meta) {
+							let tool = '';
+							return tool;
+						}
+					}
+				]
+			});
+			console.log(items);
+		})
+	</script>
+}
